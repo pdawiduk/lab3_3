@@ -4,6 +4,8 @@ import org.joda.time.DateTimeUtils;
 import org.joda.time.Duration;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * Created by pawelek on 06.07.16.
  */
@@ -23,5 +25,17 @@ public class TestOrder {
         DateTimeUtils.setCurrentMillisFixed(invalidDate);
 
         order.confirm();
+    }
+
+    @Test
+    public void confirmMethodShouldWorksFine(){
+        DateTimeUtils.setCurrentMillisFixed(System.currentTimeMillis());
+        Order order = new Order();
+
+        order.submit();
+
+        order.confirm();
+
+        assertEquals(order.getOrderState(),Order.State.SUBMITTED);
     }
 }
